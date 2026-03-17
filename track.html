@@ -3,17 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tracking Shipment</title>
+    <title>Track Shipment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0d6efd 0%, #9fcaf5 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        header {
+            background-color: #f9f9f9;
+            color: #0d6efd;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        header h1 { margin: 0; font-size: 2rem; font-weight: 700; }
+        .main-card {
+            background: white;
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            max-width: 650px;
+            width: 100%;
+        }
+        .main-card h2 { color: #2980b9; font-weight: 600; margin-bottom: 25px; }
+        .form-label { color: #444; font-weight: 500; }
+        .btn-track {
+            background-color: #2980b9;
+            border: none;
+            color: white;
+            padding: 10px 30px;
+            font-weight: 600;
+            border-radius: 6px;
+            width: 100%;
+            margin-top: 5px;
+        }
+        .btn-track:hover { background-color: #1f618d; color: white; }
+        .status-badge {
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            background-color: #eaf4ff;
+            color: #2980b9;
+            border: 1px solid #b3d7f5;
+            margin-bottom: 20px;
+        }
+        .timeline { list-style: none; padding: 0; margin: 0; }
+        .timeline li {
+            display: flex;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .timeline li:last-child { border-bottom: none; }
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #2980b9;
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+        .timeline-time { font-size: 0.8rem; color: #888; }
+        .timeline-update { font-weight: 600; color: #333; }
+        .timeline-location { font-size: 0.85rem; color: #555; }
+        .error-msg { color: #dc3545; font-weight: 500; }
+        footer {
+            background-color: #f9f9f9;
+            color: #0d6efd;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            font-size: 0.9rem;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2980b9;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .back-link:hover { text-decoration: underline; }
+    </style>
 </head>
 <body>
-    <h2>Track Your Shipment</h2>
-    <form action="api_tracking.php" method="GET">
-        <label for="tracking_number">Tracking Number:</label>
-        <input type="text" id="tracking_number" name="tracking_number" required><br><br>
-        <button onclick="trackPackage()">Locate</button>
-    </form>
 
-    <div id="trackingResult"></div>  
-    
+    <header>
+        <h1>Courier Tracking System</h1>
+    </header>
+
+    <div class="flex-grow-1 d-flex align-items-center justify-content-center p-4">
+        <div class="main-card">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            <h2>Track Your Shipment</h2>
+
+            <form onsubmit="trackPackage(event)">
+                <div class="mb-3">
+                    <label for="tracking_number" class="form-label">Tracking Number</label>
+                    <input type="text" id="tracking_number" name="tracking_number"
+                           class="form-control" placeholder="Enter your courier ID" required>
+                </div>
+                <button type="submit" class="btn btn-track">Locate Package</button>
+            </form>
+
+            <!-- Tracking result renders here -->
+            <div id="trackingResult" class="mt-4"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Courier Tracking System. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
